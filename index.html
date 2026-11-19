@@ -1,0 +1,1591 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>大赛每日实时爆料平台 - 赛事快讯_官方爆料社区</title>
+<meta name="description" content="大赛每日实时爆料平台官方网站，聚焦各类大赛赛程、现场爆料、选手动态与赛事深度观察，以原创、正版、高清内容构建值得信赖的赛事内容生态。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23EA3B2E'/%3E%3Cpath d='M18 20h12c8 0 13 4 13 11s-5 11-13 11H18z' fill='%23fff'/%3E%3Ccircle cx='46' cy='44' r='6' fill='%23111'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --dk-bg:#0e0f12;
+    --dk-panel:#16181d;
+    --dk-panel2:#1d2027;
+    --dk-line:#2b2f38;
+    --dk-text:#e9eaee;
+    --dk-sub:#9aa0ad;
+    --dk-red:#ea3b2e;
+    --dk-red2:#ff6a5e;
+    --dk-yellow:#ffd34d;
+    --dk-cyan:#4fd1e8;
+    --dk-radius:14px;
+    --dk-shadow:0 12px 34px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+    background:
+      radial-gradient(1100px 520px at 88% -6%,rgba(234,59,46,.20),transparent 62%),
+      radial-gradient(900px 480px at 6% 14%,rgba(79,209,232,.10),transparent 60%),
+      var(--dk-bg);
+    color:var(--dk-text);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  input{font-family:inherit}
+  .sk-wrap{width:min(1180px,92vw);margin:0 auto}
+  .sk-anchor{scroll-margin-top:132px}
+
+  /* ===== 吸顶：公告条 + 页头 ===== */
+  .sk-sticky{position:sticky;top:0;z-index:60}
+  .sk-notice{
+    background:linear-gradient(90deg,#ea3b2e,#ff7a4d 55%,#ffd34d);
+    color:#141414;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.2px;
+  }
+  .sk-notice-inner{display:flex;align-items:center;gap:12px;padding:8px 0;overflow:hidden}
+  .sk-notice-tag{
+    flex:none;background:#141414;color:#ffd34d;border-radius:999px;
+    padding:2px 10px;font-size:11px;font-weight:700;letter-spacing:1px;
+  }
+  .sk-notice-ticker{position:relative;flex:1;height:22px;overflow:hidden}
+  .sk-notice-item{
+    position:absolute;inset:0;display:flex;align-items:center;gap:8px;
+    white-space:nowrap;opacity:0;transform:translateY(10px);
+    transition:opacity .5s ease,transform .5s ease;
+  }
+  .sk-notice-item.is-on{opacity:1;transform:translateY(0)}
+  .sk-notice-more{flex:none;font-size:12px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+
+  .sk-header{background:rgba(14,15,18,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--dk-line)}
+  .sk-header-inner{display:flex;align-items:center;gap:20px;padding:12px 0}
+  .sk-logo{display:flex;align-items:center;gap:10px;flex:none}
+  .sk-logo-mark{
+    width:38px;height:38px;border-radius:11px;flex:none;
+    background:linear-gradient(140deg,#ea3b2e,#ffd34d 130%);
+    display:grid;place-items:center;color:#111;font-weight:900;font-size:16px;
+    box-shadow:0 6px 18px rgba(234,59,46,.35);
+  }
+  .sk-logo-txt b{display:block;font-size:16px;letter-spacing:.5px}
+  .sk-logo-txt span{display:block;font-size:11px;color:var(--dk-sub);letter-spacing:2px}
+  .sk-nav{display:flex;gap:4px;margin-left:8px;flex-wrap:wrap}
+  .sk-nav a{
+    padding:7px 12px;border-radius:9px;font-size:14px;color:var(--dk-sub);
+    transition:background .2s,color .2s;
+  }
+  .sk-nav a:hover{background:var(--dk-panel2);color:#fff}
+  .sk-head-tools{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .sk-search{position:relative;display:flex;align-items:center}
+  .sk-search input{
+    width:210px;background:var(--dk-panel);border:1px solid var(--dk-line);
+    border-radius:999px;padding:8px 14px 8px 34px;color:var(--dk-text);font-size:13px;
+    outline:none;transition:border .2s,width .2s;
+  }
+  .sk-search input:focus{border-color:var(--dk-red);width:250px}
+  .sk-search .sk-search-ico{position:absolute;left:12px;font-size:13px;color:var(--dk-sub)}
+  .sk-search-hint{
+    position:absolute;top:calc(100% + 8px);left:0;right:0;
+    background:var(--dk-panel2);border:1px solid var(--dk-line);border-radius:10px;
+    padding:8px;font-size:12.5px;color:var(--dk-sub);display:none;box-shadow:var(--dk-shadow);
+    z-index:70;
+  }
+  .sk-search-hint.is-on{display:block}
+  .sk-search-hint b{color:var(--dk-yellow)}
+  .sk-btn{
+    display:inline-flex;align-items:center;gap:7px;border-radius:999px;
+    padding:9px 18px;font-size:13.5px;font-weight:600;transition:transform .18s,filter .18s;
+  }
+  .sk-btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
+  .sk-btn-red{background:linear-gradient(120deg,#ea3b2e,#ff6a5e);color:#fff;box-shadow:0 8px 20px rgba(234,59,46,.35)}
+  .sk-btn-ghost{border:1px solid var(--dk-line);color:var(--dk-text);background:var(--dk-panel)}
+  .sk-burger{display:none;width:40px;height:38px;border-radius:10px;border:1px solid var(--dk-line);background:var(--dk-panel);font-size:16px}
+  .sk-mobile-nav{display:none;border-top:1px solid var(--dk-line);background:var(--dk-panel)}
+  .sk-mobile-nav.is-on{display:block}
+  .sk-mobile-nav a{display:block;padding:12px 4px;border-bottom:1px dashed var(--dk-line);font-size:14.5px;color:var(--dk-sub)}
+  .sk-mobile-nav a:last-child{border-bottom:0}
+
+  /* ===== 通用标题 ===== */
+  .sk-section{padding:64px 0}
+  .sk-sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:28px;flex-wrap:wrap}
+  .sk-eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:3px;
+    color:var(--dk-red2);font-weight:700;text-transform:uppercase;margin-bottom:8px;
+  }
+  .sk-eyebrow::before{content:"";width:22px;height:2px;background:var(--dk-red);border-radius:2px}
+  .sk-h2{font-size:clamp(22px,3vw,30px);line-height:1.3;letter-spacing:.5px}
+  .sk-h2 em{font-style:normal;color:var(--dk-yellow)}
+  .sk-sec-desc{color:var(--dk-sub);font-size:14px;max-width:560px;margin-top:8px}
+  .sk-h3{font-size:16.5px;line-height:1.45}
+
+  /* ===== 首屏 ===== */
+  .sk-hero{position:relative;padding:56px 0 40px;overflow:hidden}
+  .sk-hero-grid{display:grid;grid-template-columns:1.03fr .97fr;gap:44px;align-items:center}
+  .sk-hero-badge{
+    display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;
+    color:#111;background:var(--dk-yellow);border-radius:999px;padding:5px 14px;margin-bottom:18px;
+  }
+  .sk-hero-badge i{width:7px;height:7px;border-radius:50%;background:#ea3b2e;display:inline-block;animation:skPulse 1.6s infinite}
+  @keyframes skPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+  .sk-hero h1{
+    font-size:clamp(30px,4.6vw,52px);line-height:1.16;letter-spacing:1px;font-weight:800;
+    background:linear-gradient(100deg,#fff 30%,#ffd34d 92%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .sk-hero-sub{margin-top:16px;font-size:15.5px;color:#c3c8d2;max-width:600px}
+  .sk-hero-sub strong{color:var(--dk-yellow);font-weight:700}
+  .sk-hero-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+  .sk-hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;max-width:520px}
+  .sk-stat{
+    background:linear-gradient(160deg,var(--dk-panel2),var(--dk-panel));
+    border:1px solid var(--dk-line);border-radius:var(--dk-radius);padding:14px 16px;
+  }
+  .sk-stat b{display:block;font-size:24px;letter-spacing:.5px;color:var(--dk-yellow);font-variant-numeric:tabular-nums}
+  .sk-stat span{font-size:12.5px;color:var(--dk-sub)}
+
+  .sk-hero-visual{position:relative}
+  .sk-hero-main{
+    position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--dk-line);
+    background:var(--dk-panel);box-shadow:var(--dk-shadow);
+  }
+  .sk-hero-main img{width:100%;aspect-ratio:16/10;object-fit:cover}
+  .sk-hero-float{
+    position:absolute;left:0;right:0;bottom:0;padding:18px 18px 16px;
+    background:linear-gradient(0deg,rgba(8,9,12,.94),rgba(8,9,12,.05));
+  }
+  .sk-hero-float .sk-chip{background:rgba(234,59,46,.9);color:#fff}
+  .sk-hero-float h3{font-size:16px;margin:8px 0 4px}
+  .sk-hero-float p{font-size:12.5px;color:#b6bcc7}
+  .sk-hero-side{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;
+  }
+  .sk-hero-side figure{
+    position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--dk-line);
+  }
+  .sk-hero-side img{width:100%;aspect-ratio:16/9;object-fit:cover}
+  .sk-hero-side figcaption{
+    position:absolute;inset:auto 0 0 0;padding:22px 10px 8px;font-size:11.5px;line-height:1.4;
+    background:linear-gradient(0deg,rgba(0,0,0,.9),transparent);color:#dfe3ea;
+  }
+  .sk-chip{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;
+    padding:3px 9px;border-radius:999px;background:rgba(79,209,232,.16);color:var(--dk-cyan);
+  }
+
+  /* ===== 关键词深度解析 ===== */
+  .sk-about{
+    background:linear-gradient(180deg,rgba(29,32,39,.9),rgba(22,24,29,.9));
+    border-top:1px solid var(--dk-line);border-bottom:1px solid var(--dk-line);
+  }
+  .sk-about-grid{display:grid;grid-template-columns:.34fr .66fr;gap:40px;align-items:start}
+  .sk-about-toc{
+    position:sticky;top:150px;background:var(--dk-panel);border:1px solid var(--dk-line);
+    border-radius:var(--dk-radius);padding:18px 20px;
+  }
+  .sk-about-toc h3{font-size:14px;letter-spacing:1px;color:var(--dk-yellow);margin-bottom:12px}
+  .sk-about-toc ol{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--dk-sub)}
+  .sk-about-toc li::before{content:"›";color:var(--dk-red);margin-right:8px;font-weight:900}
+  .sk-about-body h2{font-size:clamp(21px,2.6vw,27px);margin-bottom:16px;line-height:1.35}
+  .sk-about-body h3{font-size:16.5px;margin:24px 0 8px;color:#fff}
+  .sk-about-body p{color:#b9bfca;font-size:14.5px;margin-bottom:12px;text-align:justify}
+  .sk-about-body p strong{color:var(--dk-yellow);font-weight:600}
+  .sk-quote{
+    border-left:3px solid var(--dk-red);background:rgba(234,59,46,.07);
+    padding:14px 18px;border-radius:0 12px 12px 0;font-size:14px;color:#d6dae2;margin:18px 0;
+  }
+
+  /* ===== 焦点内容 ===== */
+  .sk-focus-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:20px}
+  .sk-focus-main{
+    position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--dk-line);
+    box-shadow:var(--dk-shadow);background:var(--dk-panel);
+  }
+  .sk-focus-main img{width:100%;aspect-ratio:16/9;object-fit:cover}
+  .sk-focus-main .sk-focus-info{
+    position:absolute;inset:auto 0 0 0;padding:26px 22px 20px;
+    background:linear-gradient(0deg,rgba(8,9,12,.97),rgba(8,9,12,.15) 70%,transparent);
+  }
+  .sk-focus-info h3{font-size:20px;margin:10px 0 8px}
+  .sk-focus-info p{font-size:13px;color:#b6bcc7;max-width:520px}
+  .sk-meta{display:flex;gap:14px;font-size:12px;color:var(--dk-sub);margin-top:12px;flex-wrap:wrap}
+  .sk-focus-side{display:grid;gap:14px}
+  .sk-mini{
+    display:grid;grid-template-columns:128px 1fr;gap:12px;align-items:center;
+    background:var(--dk-panel);border:1px solid var(--dk-line);border-radius:var(--dk-radius);
+    padding:10px;transition:border-color .2s,transform .2s;
+  }
+  .sk-mini:hover{border-color:var(--dk-red);transform:translateX(3px)}
+  .sk-mini img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:9px}
+  .sk-mini h4{font-size:14px;line-height:1.45;margin-bottom:5px}
+  .sk-mini small{font-size:11.5px;color:var(--dk-sub)}
+
+  /* ===== 视频流卡片 ===== */
+  .sk-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+  .sk-tab{
+    padding:7px 16px;border-radius:999px;font-size:13px;font-weight:600;
+    border:1px solid var(--dk-line);color:var(--dk-sub);background:var(--dk-panel);
+    transition:all .2s;
+  }
+  .sk-tab:hover{border-color:var(--dk-red2);color:#fff}
+  .sk-tab.is-on{background:linear-gradient(120deg,#ea3b2e,#ff6a5e);color:#fff;border-color:transparent}
+  .sk-video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .sk-card{
+    background:var(--dk-panel);border:1px solid var(--dk-line);border-radius:var(--dk-radius);
+    overflow:hidden;display:flex;flex-direction:column;
+    transition:transform .22s,border-color .22s,box-shadow .22s;
+  }
+  .sk-card:hover{transform:translateY(-5px);border-color:#3a404c;box-shadow:var(--dk-shadow)}
+  .sk-cover{position:relative;overflow:hidden}
+  .sk-cover img{width:100%;aspect-ratio:16/9;object-fit:cover;transition:transform .5s}
+  .sk-card:hover .sk-cover img{transform:scale(1.05)}
+  .sk-cover-tag{
+    position:absolute;top:10px;left:10px;font-size:11px;font-weight:700;
+    padding:3px 9px;border-radius:7px;background:rgba(10,11,14,.82);color:var(--dk-yellow);
+  }
+  .sk-cover-play{
+    position:absolute;right:10px;bottom:10px;width:34px;height:34px;border-radius:50%;
+    background:rgba(234,59,46,.92);display:grid;place-items:center;font-size:12px;color:#fff;
+    box-shadow:0 6px 16px rgba(0,0,0,.4);
+  }
+  .sk-cover-live{
+    position:absolute;top:10px;right:10px;font-size:10.5px;font-weight:800;letter-spacing:1px;
+    color:#fff;background:#ea3b2e;border-radius:6px;padding:3px 8px;
+    animation:skPulse 1.8s infinite;
+  }
+  .sk-card-body{padding:14px 15px 15px;display:flex;flex-direction:column;gap:9px;flex:1}
+  .sk-card-body h3{font-size:15px;line-height:1.5}
+  .sk-card-body p{font-size:12.5px;color:var(--dk-sub);flex:1}
+  .sk-tags{display:flex;gap:6px;flex-wrap:wrap}
+  .sk-tag{font-size:11px;padding:2px 8px;border-radius:6px;background:rgba(79,209,232,.1);color:#7fdcf0}
+  .sk-card-foot{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    border-top:1px dashed var(--dk-line);padding-top:10px;
+  }
+  .sk-author{display:flex;align-items:center;gap:8px;font-size:12px;color:#c9ced8;min-width:0}
+  .sk-ava{
+    width:26px;height:26px;border-radius:50%;flex:none;display:grid;place-items:center;
+    font-size:12px;font-weight:800;color:#101114;
+  }
+  .sk-actions{display:flex;gap:6px}
+  .sk-act{
+    font-size:12px;color:var(--dk-sub);padding:4px 8px;border-radius:8px;
+    border:1px solid transparent;transition:all .18s;white-space:nowrap;
+  }
+  .sk-act:hover{background:var(--dk-panel2);color:#fff}
+  .sk-act.is-liked{color:var(--dk-red2);font-weight:700}
+  .sk-act.is-saved{color:var(--dk-yellow);font-weight:700}
+
+  /* ===== 专题 ===== */
+  .sk-topic-section{background:linear-gradient(180deg,rgba(22,24,29,.6),transparent)}
+  .sk-topic-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .sk-topic{
+    position:relative;border-radius:var(--dk-radius);overflow:hidden;
+    border:1px solid var(--dk-line);min-height:230px;display:flex;align-items:flex-end;
+  }
+  .sk-topic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .sk-topic:hover img{transform:scale(1.06)}
+  .sk-topic-in{
+    position:relative;padding:16px;width:100%;
+    background:linear-gradient(0deg,rgba(8,9,12,.95),rgba(8,9,12,.1));
+  }
+  .sk-topic-in h3{font-size:15px;margin:8px 0 6px}
+  .sk-topic-in p{font-size:12px;color:#b6bcc7}
+  .sk-topic-state{font-size:11px;color:var(--dk-cyan);margin-top:8px;display:block}
+
+  /* ===== 创作者 ===== */
+  .sk-creator-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .sk-creator{
+    background:var(--dk-panel);border:1px solid var(--dk-line);border-radius:var(--dk-radius);
+    padding:20px 18px;text-align:center;transition:border-color .2s,transform .2s;
+  }
+  .sk-creator:hover{border-color:var(--dk-red);transform:translateY(-4px)}
+  .sk-creator .sk-ava-lg{
+    width:62px;height:62px;border-radius:22px;margin:0 auto 12px;display:grid;place-items:center;
+    font-size:24px;font-weight:900;color:#101114;
+  }
+  .sk-creator h3{font-size:15.5px;margin-bottom:4px}
+  .sk-creator .sk-field{font-size:12px;color:var(--dk-yellow);margin-bottom:8px}
+  .sk-creator p{font-size:12.5px;color:var(--dk-sub);min-height:56px}
+  .sk-creator-data{display:flex;justify-content:center;gap:16px;font-size:12px;color:#c9ced8;margin:10px 0 12px}
+  .sk-creator-data b{color:#fff}
+  .sk-creator button{width:100%}
+
+  /* ===== 榜单 + 随笔 ===== */
+  .sk-duo{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .sk-panel{
+    background:var(--dk-panel);border:1px solid var(--dk-line);border-radius:var(--dk-radius);
+    padding:24px 22px;
+  }
+  .sk-panel h3{font-size:17px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+  .sk-panel h3 span{font-size:11px;font-weight:700;color:var(--dk-yellow);letter-spacing:2px}
+  .sk-rank{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .sk-rank li{display:grid;grid-template-columns:26px 1fr auto;gap:10px;align-items:center;font-size:13.5px}
+  .sk-rank .sk-no{
+    width:24px;height:24px;border-radius:8px;display:grid;place-items:center;font-size:12px;font-weight:800;
+    background:var(--dk-panel2);color:var(--dk-sub);
+  }
+  .sk-rank li:nth-child(1) .sk-no{background:#ea3b2e;color:#fff}
+  .sk-rank li:nth-child(2) .sk-no{background:#ff8a3d;color:#101114}
+  .sk-rank li:nth-child(3) .sk-no{background:#ffd34d;color:#101114}
+  .sk-rank .sk-heat{font-size:11.5px;color:var(--dk-sub);font-variant-numeric:tabular-nums}
+  .sk-note{font-size:13.5px;color:#b9bfca;border-bottom:1px dashed var(--dk-line);padding:12px 0}
+  .sk-note:last-child{border-bottom:0;padding-bottom:0}
+  .sk-note b{display:block;color:#fff;font-size:14px;margin-bottom:3px}
+  .sk-note small{color:var(--dk-sub)}
+
+  /* ===== 评论 ===== */
+  .sk-comment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .sk-comment{
+    background:var(--dk-panel);border:1px solid var(--dk-line);border-radius:var(--dk-radius);
+    padding:16px;position:relative;font-size:13.5px;color:#c3c8d2;
+  }
+  .sk-comment::before{
+    content:"“";position:absolute;top:4px;right:14px;font-size:44px;line-height:1;
+    color:rgba(234,59,46,.28);font-family:Georgia,serif;
+  }
+  .sk-comment p{margin-bottom:12px}
+  .sk-comment .sk-author{font-size:12px}
+
+  /* ===== 投稿 / 灵感 ===== */
+  .sk-cta{
+    border-radius:18px;padding:38px 34px;border:1px solid var(--dk-line);
+    background:
+      radial-gradient(700px 260px at 88% 0%,rgba(234,59,46,.24),transparent 66%),
+      linear-gradient(140deg,#1b1e25,#14161b);
+    display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;
+  }
+  .sk-cta h2{font-size:clamp(21px,2.8vw,28px);margin-bottom:12px}
+  .sk-cta p{font-size:14px;color:#b9bfca;max-width:560px}
+  .sk-cta-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+  .sk-inspire{display:grid;gap:10px}
+  .sk-inspire div{
+    background:rgba(14,15,18,.7);border:1px solid var(--dk-line);border-radius:11px;
+    padding:12px 14px;font-size:13px;color:#c9ced8;
+  }
+  .sk-inspire b{color:var(--dk-yellow)}
+
+  /* ===== FAQ ===== */
+  .sk-faq{display:grid;grid-template-columns:1fr 1fr;gap:12px 22px}
+  .sk-faq details{
+    background:var(--dk-panel);border:1px solid var(--dk-line);border-radius:12px;
+    padding:14px 16px;transition:border-color .2s;
+  }
+  .sk-faq details[open]{border-color:rgba(234,59,46,.55)}
+  .sk-faq summary{
+    cursor:pointer;font-size:14px;font-weight:600;list-style:none;
+    display:flex;justify-content:space-between;gap:12px;align-items:center;
+  }
+  .sk-faq summary::-webkit-details-marker{display:none}
+  .sk-faq summary::after{content:"+";color:var(--dk-red2);font-size:18px;font-weight:400}
+  .sk-faq details[open] summary::after{content:"–"}
+  .sk-faq p{font-size:13px;color:var(--dk-sub);margin-top:10px;padding-top:10px;border-top:1px dashed var(--dk-line)}
+
+  /* ===== 动态 ===== */
+  .sk-news{display:grid;gap:12px}
+  .sk-news-item{
+    display:grid;grid-template-columns:110px 1fr auto;gap:16px;align-items:center;
+    background:var(--dk-panel);border:1px solid var(--dk-line);border-radius:12px;
+    padding:14px 18px;transition:border-color .2s,transform .2s;
+  }
+  .sk-news-item:hover{border-color:#3a404c;transform:translateX(3px)}
+  .sk-news-date{font-size:12.5px;color:var(--dk-yellow);font-variant-numeric:tabular-nums;letter-spacing:.5px}
+  .sk-news-item h3{font-size:14.5px;margin-bottom:3px}
+  .sk-news-item p{font-size:12.5px;color:var(--dk-sub)}
+
+  /* ===== 合作 ===== */
+  .sk-partners{display:flex;flex-wrap:wrap;gap:12px}
+  .sk-partner{
+    padding:10px 20px;border-radius:999px;border:1px solid var(--dk-line);
+    background:var(--dk-panel);font-size:13px;color:#c3c8d2;letter-spacing:.5px;
+    transition:all .2s;
+  }
+  .sk-partner:hover{color:#fff;border-color:var(--dk-red);background:rgba(234,59,46,.12)}
+
+  /* ===== 页脚 ===== */
+  .sk-footer{border-top:1px solid var(--dk-line);background:#0b0c0f;padding:44px 0 26px;margin-top:20px}
+  .sk-footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:28px}
+  .sk-footer h4{font-size:13.5px;margin-bottom:12px;color:#fff;letter-spacing:1px}
+  .sk-footer p,.sk-footer a,.sk-footer li{font-size:12.5px;color:var(--dk-sub);line-height:2}
+  .sk-footer ul{list-style:none}
+  .sk-footer a:hover{color:var(--dk-yellow)}
+  .sk-footer-bottom{
+    margin-top:28px;padding-top:18px;border-top:1px dashed var(--dk-line);
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:12px;color:#6f7683;
+  }
+
+  /* ===== 悬浮工具 ===== */
+  .sk-toast{
+    position:fixed;left:50%;bottom:36px;transform:translate(-50%,24px);
+    background:#1d2027;border:1px solid var(--dk-red);color:#fff;
+    padding:11px 22px;border-radius:999px;font-size:13px;z-index:200;
+    opacity:0;pointer-events:none;transition:all .3s;box-shadow:var(--dk-shadow);
+  }
+  .sk-toast.is-on{opacity:1;transform:translate(-50%,0)}
+  .sk-top{
+    position:fixed;right:24px;bottom:24px;width:44px;height:44px;border-radius:50%;
+    background:linear-gradient(140deg,#ea3b2e,#ff6a5e);color:#fff;font-size:16px;
+    display:grid;place-items:center;box-shadow:0 10px 26px rgba(234,59,46,.4);
+    opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:120;
+  }
+  .sk-top.is-on{opacity:1;pointer-events:auto}
+  .sk-top:hover{transform:translateY(-3px)}
+
+  .sk-modal{
+    position:fixed;inset:0;z-index:300;display:none;place-items:center;
+    background:rgba(5,6,8,.72);backdrop-filter:blur(4px);padding:20px;
+  }
+  .sk-modal.is-on{display:grid}
+  .sk-modal-box{
+    width:min(520px,94vw);background:var(--dk-panel);border:1px solid var(--dk-line);
+    border-radius:16px;padding:26px 24px;box-shadow:var(--dk-shadow);
+  }
+  .sk-modal-box h3{font-size:18px;margin-bottom:8px}
+  .sk-modal-box p{font-size:13px;color:var(--dk-sub);margin-bottom:18px}
+  .sk-modal-box label{display:block;font-size:12.5px;color:#c3c8d2;margin-bottom:14px}
+  .sk-modal-box input,.sk-modal-box textarea{
+    width:100%;margin-top:6px;background:#111318;border:1px solid var(--dk-line);
+    border-radius:10px;padding:10px 12px;color:var(--dk-text);font-size:13.5px;outline:none;resize:vertical;
+  }
+  .sk-modal-box input:focus,.sk-modal-box textarea:focus{border-color:var(--dk-red)}
+  .sk-modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+
+  /* ===== 响应式 ===== */
+  @media (max-width:1000px){
+    .sk-hero-grid{grid-template-columns:1fr;gap:32px}
+    .sk-about-grid{grid-template-columns:1fr;gap:24px}
+    .sk-about-toc{position:static}
+    .sk-focus-grid{grid-template-columns:1fr}
+    .sk-video-grid{grid-template-columns:repeat(2,1fr)}
+    .sk-topic-grid{grid-template-columns:repeat(2,1fr)}
+    .sk-creator-grid{grid-template-columns:repeat(2,1fr)}
+    .sk-duo{grid-template-columns:1fr}
+    .sk-comment-grid{grid-template-columns:repeat(2,1fr)}
+    .sk-cta{grid-template-columns:1fr;padding:28px 24px}
+    .sk-footer-grid{grid-template-columns:1fr 1fr}
+    .sk-news-item{grid-template-columns:90px 1fr;gap:12px}
+    .sk-news-item .sk-act{display:none}
+  }
+  @media (max-width:760px){
+    .sk-nav{display:none}
+    .sk-search{display:none}
+    .sk-burger{display:grid;place-items:center}
+    .sk-head-tools .sk-btn{padding:8px 14px;font-size:12.5px}
+    .sk-section{padding:46px 0}
+    .sk-video-grid{grid-template-columns:1fr}
+    .sk-topic-grid{grid-template-columns:1fr}
+    .sk-creator-grid{grid-template-columns:1fr}
+    .sk-comment-grid{grid-template-columns:1fr}
+    .sk-faq{grid-template-columns:1fr}
+    .sk-hero-side{grid-template-columns:1fr}
+    .sk-hero-stats{grid-template-columns:1fr 1fr}
+    .sk-footer-grid{grid-template-columns:1fr}
+    .sk-mini{grid-template-columns:104px 1fr}
+    .sk-anchor{scroll-margin-top:120px}
+  }
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="sk-sticky">
+  <div class="sk-notice" aria-label="平台实时公告">
+    <div class="sk-wrap sk-notice-inner">
+      <span class="sk-notice-tag">实时公告</span>
+      <div class="sk-notice-ticker" id="skNoticeTicker">
+        <div class="sk-notice-item is-on">🆕 11月19日 18:00｜城市创意设计大赛初赛名单已上线，新增 32 条现场爆料</div>
+        <div class="sk-notice-item">🔥 全国大学生机器人挑战赛 复赛第 2 场爆料通道开启，报名审核同步进行</div>
+        <div class="sk-notice-item">📣 大赛爆料官招募第 3 期启动，新增「现场直击」与「赛后复盘」两类标签</div>
+        <div class="sk-notice-item">🏆 本周热度榜更新：原创影像大赛 · 城市观察单元关注度上涨 41%</div>
+      </div>
+      <a class="sk-notice-more" href="#sk-news">全部动态 →</a>
+    </div>
+  </div>
+
+  <header class="sk-header">
+    <div class="sk-wrap sk-header-inner">
+      <a class="sk-logo" href="#sk-home" aria-label="大赛每日实时爆料平台官方网站首页">
+        <span class="sk-logo-mark">爆</span>
+        <span class="sk-logo-txt"><b>大赛每日实时爆料</b><span>SAIMATCH LIVE</span></span>
+      </a>
+      <nav class="sk-nav" aria-label="主导航">
+        <a href="#sk-home">首页</a>
+        <a href="#sk-about">平台解析</a>
+        <a href="#sk-focus">焦点爆料</a>
+        <a href="#sk-videos">实时内容</a>
+        <a href="#sk-topics">专题企划</a>
+        <a href="#sk-creators">爆料官</a>
+        <a href="#sk-news">企业动态</a>
+        <a href="#sk-faq">帮助</a>
+      </nav>
+      <div class="sk-head-tools">
+        <div class="sk-search">
+          <span class="sk-search-ico">⌕</span>
+          <input type="search" id="skSearchInput" placeholder="搜索大赛、爆料、选手…" aria-label="站内搜索">
+          <div class="sk-search-hint" id="skSearchHint"></div>
+        </div>
+        <button class="sk-btn sk-btn-red" id="skSubmitBtn">我要爆料</button>
+        <button class="sk-burger" id="skBurger" aria-label="展开导航" aria-expanded="false">☰</button>
+      </div>
+    </div>
+    <div class="sk-mobile-nav" id="skMobileNav">
+      <div class="sk-wrap">
+        <a href="#sk-home">首页</a>
+        <a href="#sk-about">平台解析</a>
+        <a href="#sk-focus">焦点爆料</a>
+        <a href="#sk-videos">实时内容</a>
+        <a href="#sk-topics">专题企划</a>
+        <a href="#sk-creators">爆料官</a>
+        <a href="#sk-news">企业动态</a>
+        <a href="#sk-faq">帮助</a>
+      </div>
+    </div>
+  </header>
+</div>
+
+<main>
+
+  <!-- ===== 首屏 ===== -->
+  <section class="sk-hero sk-anchor" id="sk-home">
+    <div class="sk-wrap sk-hero-grid">
+      <div>
+        <span class="sk-hero-badge"><i></i>官方实时爆料通道 · 2026 赛季持续运营中</span>
+        <h1>大赛每日实时爆料平台</h1>
+        <p class="sk-hero-sub">
+          作为深耕赛事内容领域的<strong>品牌官网</strong>，我们以原创、正版、高清的现场影像与企业级内容标准，
+          为选手、评委、观众与赛事主办方搭建一个<strong>值得信赖</strong>的实时爆料社区。
+        </p>
+        <div class="sk-hero-actions">
+          <a class="sk-btn sk-btn-red" href="#sk-videos">进入实时爆料流</a>
+          <a class="sk-btn sk-btn-ghost" href="#sk-about">了解平台定位</a>
+          <button class="sk-btn sk-btn-ghost" id="skShareHero">分享官网</button>
+        </div>
+        <div class="sk-hero-stats">
+          <div class="sk-stat"><b data-count="186">186</b><span>场大赛实时跟踪</span></div>
+          <div class="sk-stat"><b data-count="42">42</b><span>位认证爆料官</span></div>
+          <div class="sk-stat"><b data-count="9">9</b><span>分钟平均爆料时差</span></div>
+        </div>
+      </div>
+
+      <div class="sk-hero-visual">
+        <figure class="sk-hero-main">
+          <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3Cdefs%3E%3ClinearGradient id='bgA' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23151a24'/%3E%3Cstop offset='1' stop-color='%232e1520'/%3E%3C/linearGradient%3E%3ClinearGradient id='beam' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23ffd34d' stop-opacity='.85'/%3E%3Cstop offset='1' stop-color='%23ffd34d' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='500' fill='url(%23bgA)'/%3E%3Cpolygon points='330,0 470,0 640,500 160,500' fill='url(%23beam)' opacity='.22'/%3E%3Crect x='80' y='330' width='640' height='10' rx='5' fill='%23ea3b2e' opacity='.75'/%3E%3Ccircle cx='300' cy='215' r='56' fill='%23ea3b2e'/%3E%3Ccircle cx='300' cy='215' r='26' fill='%23fff' opacity='.92'/%3E%3Cpath d='M292 200 l26 15 -26 15 z' fill='%23ea3b2e'/%3E%3Crect x='392' y='150' width='260' height='14' rx='7' fill='%23ffffff' opacity='.82'/%3E%3Crect x='392' y='182' width='200' height='10' rx='5' fill='%23ffffff' opacity='.4'/%3E%3Crect x='392' y='206' width='228' height='10' rx='5' fill='%23ffffff' opacity='.28'/%3E%3Crect x='392' y='236' width='96' height='26' rx='13' fill='%234fd1e8' opacity='.85'/%3E%3Cg opacity='.8'%3E%3Ccircle cx='170' cy='105' r='5' fill='%23ffd34d'/%3E%3Ccircle cx='660' cy='90' r='4' fill='%234fd1e8'/%3E%3Ccircle cx='700' cy='300' r='6' fill='%23ea3b2e'/%3E%3Ccircle cx='120' cy='250' r='4' fill='%23ffffff'/%3E%3C/g%3E%3Crect x='80' y='380' width='180' height='8' rx='4' fill='%23ffffff' opacity='.18'/%3E%3Crect x='80' y='400' width='120' height='8' rx='4' fill='%23ffffff' opacity='.1'/%3E%3C/svg%3E" alt="大赛现场实时爆料直播画面主视觉">
+          <div class="sk-hero-float">
+            <span class="sk-chip">现场直击</span>
+            <h3>城市创意设计大赛 · 决赛现场第 3 轮爆料</h3>
+            <p>评委打分通道 20:40 开启 · 现场爆料官 8 人同步更新</p>
+          </div>
+        </figure>
+        <div class="sk-hero-side">
+          <figure>
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%231b2430'/%3E%3Cpath d='M0 180 Q90 120 190 165 T400 150 V225 H0 Z' fill='%232c4a63'/%3E%3Ccircle cx='320' cy='60' r='30' fill='%23ffd34d' opacity='.8'/%3E%3Cpath d='M60 150 l40 -46 40 46 z' fill='%234fd1e8' opacity='.6'/%3E%3Crect x='150' y='95' width='96' height='9' rx='4' fill='%23fff' opacity='.55'/%3E%3Crect x='150' y='114' width='64' height='7' rx='3' fill='%23fff' opacity='.3'/%3E%3C/svg%3E" alt="机器人挑战赛复赛现场爆料封面">
+            <figcaption>机器人挑战赛 · 复赛第 2 场</figcaption>
+          </figure>
+          <figure>
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 225'%3E%3Crect width='400' height='225' fill='%23241825'/%3E%3Cg fill='%23ea3b2e' opacity='.6'%3E%3Crect x='40' y='120' width='24' height='70'/%3E%3Crect x='76' y='92' width='24' height='98'/%3E%3Crect x='112' y='138' width='24' height='52'/%3E%3Crect x='148' y='70' width='24' height='120'/%3E%3C/g%3E%3Cpath d='M200 178 l52 -62 52 62 z' fill='%23ffd34d' opacity='.72'/%3E%3Ccircle cx='330' cy='72' r='22' fill='%23ffffff' opacity='.22'/%3E%3Crect x='212' y='188' width='140' height='8' rx='4' fill='%23fff' opacity='.25'/%3E%3C/svg%3E" alt="原创影像大赛城市观察单元封面图">
+            <figcaption>原创影像大赛 · 城市观察单元</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 关键词解析 ===== -->
+  <section class="sk-section sk-about sk-anchor" id="sk-about">
+    <div class="sk-wrap sk-about-grid">
+      <aside class="sk-about-toc">
+        <h3>本页导航</h3>
+        <ol>
+          <li>平台是什么</li>
+          <li>实时爆料如何运转</li>
+          <li>内容生态与品质标准</li>
+          <li>创作者与赛事方协同</li>
+          <li>品牌沿革与使命</li>
+        </ol>
+      </aside>
+      <div class="sk-about-body">
+        <div class="sk-eyebrow">About the Platform · 深度解析</div>
+        <h2>一个把「大赛现场」变成「实时内容」的爆料平台</h2>
+        <p>
+          「大赛每日实时爆料平台」是这个<a href="#sk-home">品牌官网</a>对外发布的统一名称，也是一条持续运转的信息生产线。
+          如果把一场大赛比作一次潮汐，那么选手的表现、评委的点评、观众的呼吸、主办方的每一个临时决定，
+          都是潮水退去之前一闪而过的浪花。传统的赛事报道往往只在赛后复盘时才拼出完整图景，而我们的
+          <strong>企业级爆料机制</strong>，试图把这条时间线整体前移——在赛事仍在进行的时候，就把真实、可核验、
+          有现场温度的信息送到观众面前。
+        </p>
+        <p>
+          从产品结构上看，平台由三条主线构成：<strong>实时爆料流</strong>负责「快」，以分钟级节奏记录现场发生的一切；
+          <strong>专题企划</strong>负责「深」，把一个赛事的赛制、选手、幕后、争议与精彩片段梳理成可反复阅读的内容资产；
+          <strong>爆料官矩阵</strong>负责「人」，让散落在各赛区、各赛道的观察者拥有稳定的身份与被看见的通道。
+          三条主线彼此咬合，构成一个完整的<strong>内容生态</strong>。
+        </p>
+
+        <h3>实时爆料如何运转</h3>
+        <p>
+          每场入驻赛事的爆料通道开启后，经过认证的爆料官可以在现场以图文、短视频、语音纪要三种形式提交素材。
+          平台审核团队按「现场可核验」「信息完整度」「时间敏感度」三个维度进行分级，最快 3 分钟完成发布，
+          平均爆料时差控制在 9 分钟以内。对于评分公布、晋级名单、临时改规等关键节点，平台会启动
+          <strong>官方发布</strong>绿色通道，由赛事方指定的联络人确认后直接进入焦点位。
+        </p>
+        <div class="sk-quote">
+          我们坚持一个朴素的原则：爆料不是猜测，而是对现场的诚实转述。任何无法核实的传闻，都会被打上「待确认」标签，
+          而不是被包装成事实。这是平台<strong>值得信赖</strong>的根基，也是我们与所有合作赛事方共同的约定。
+        </div>
+
+        <h3>内容生态与品质标准</h3>
+        <p>
+          在内容品质上，平台执行统一的<strong>高清影像规范</strong>与<strong>原创署名制度</strong>：所有封面与正片素材需为爆料官原创或获得明确授权，
+          正版素材在封面左下角展示版权标识；短视频默认以 16:9 比例呈现，配有时间轴标签与现场环境声。
+          我们相信，赛事内容的价值不仅在于「看到了」，更在于「看清楚了」。因此平台长期投入在画质标准、
+          字幕规范与信息结构上，希望每一个打开页面的人，都能在最短时间内理解一场大赛此刻正在发生什么。
+        </p>
+        <p>
+          与此同时，平台鼓励多元表达：既有一句话的现场快讯，也有三千字的赛后深度观察；既有专业摄影师的组图，
+          也有普通观众用手机记录的动人瞬间。我们不做同质化的内容堆叠，而是通过榜单、专题、话题标签等结构化手段，
+          让不同密度的内容各自找到读者。这种<strong>多元、包容</strong>的内容取向，是社区长期保持活力的原因。
+        </p>
+
+        <h3>创作者与赛事方协同</h3>
+        <p>
+          对创作者，平台提供爆料官认证、内容分成、素材库支持与成长路径；对赛事方，平台提供官方爆料页搭建、
+          实时数据看板、观众互动组件与赛后可回看的完整内容存档。双方在同一个内容链条上协作，
+          让一场比赛的影响力不止停留在当天，而是沉淀为可以持续被检索、被讨论、被引用的<strong>精品内容</strong>。
+          截至目前，平台已与 27 个赛事主办机构建立长期合作，覆盖设计、机器人、影像、编程、辩论、体育等多个赛道。
+        </p>
+
+        <h3>品牌沿革与使命</h3>
+        <p>
+          平台的起点很小：几位赛事志愿者发现，很多精彩瞬间因为没有及时的记录者而永远消失。于是他们做了一个简单的页面，
+          把当天的现场照片和文字整理上去，供参赛者与家属查看。这个页面后来成长为今天的
+          <strong>大赛每日实时爆料平台</strong>。它依然保留着最初的朴素目标——让每一个值得被记住的现场，都不被遗漏。
+          我们把自己定位为赛事内容领域里的<strong>垂直领域</strong>服务者，不追求大而全，只希望在「赛事实时信息」这件事上做到
+          行业领先，成为用户首选的赛事爆料入口。
+        </p>
+        <p>
+          面向未来，平台将继续在真实性核验、创作者扶持与赛事服务三条线上持续投入，并保持对新技术、新表达方式的开放态度。
+          我们相信，真实的现场本身就拥有力量；而我们的工作，是让这种力量被更及时、更清晰、更温暖地传递出去。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 焦点爆料 ===== -->
+  <section class="sk-section sk-anchor" id="sk-focus">
+    <div class="sk-wrap">
+      <div class="sk-sec-head">
+        <div>
+          <div class="sk-eyebrow">Focus · 焦点爆料</div>
+          <h2 class="sk-h2">此刻最值得关注的<em>四组现场</em></h2>
+          <p class="sk-sec-desc">由平台编辑部与现场爆料官联合筛选，覆盖评分公布、赛制调整与高光时刻。</p>
+        </div>
+      </div>
+      <div class="sk-focus-grid">
+        <article class="sk-focus-main">
+          <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='f1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230f1a22'/%3E%3Cstop offset='1' stop-color='%232a1018'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23f1)'/%3E%3Cg opacity='.5'%3E%3Crect x='60' y='60' width='680' height='330' fill='none' stroke='%234fd1e8' stroke-width='2' stroke-dasharray='10 8'/%3E%3C/g%3E%3Crect x='120' y='150' width='120' height='170' rx='8' fill='%23ea3b2e'/%3E%3Crect x='260' y='110' width='120' height='210' rx='8' fill='%23ffd34d'/%3E%3Crect x='400' y='170' width='120' height='150' rx='8' fill='%234fd1e8'/%3E%3Crect x='540' y='130' width='120' height='190' rx='8' fill='%23ffffff' opacity='.85'/%3E%3Cg stroke='%23ffffff' stroke-width='3' opacity='.5'%3E%3Cline x1='120' y1='360' x2='660' y2='360'/%3E%3C/g%3E%3C/svg%3E" alt="城市创意设计大赛决赛评分公布现场爆料大图">
+          <div class="sk-focus-info">
+            <span class="sk-chip">评分公布 · 实时更新</span>
+            <h3>城市创意设计大赛决赛评分公布：第 3 轮出现并列第一</h3>
+            <p>19:58 现场爆料：评委组对「公共空间再想象」赛道给出 92.4 与 92.4 的并列分数，主办方宣布追加一轮 10 分钟答辩。现场观众席出现明显骚动，两位选手已返回准备区。</p>
+            <div class="sk-meta">
+              <span>爆料官 · 看台第七排</span><span>11月19日 20:06</span><span>已核验 · 官方确认</span>
+            </div>
+          </div>
+        </article>
+        <div class="sk-focus-side">
+          <article class="sk-mini">
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 180'%3E%3Crect width='320' height='180' fill='%23192430'/%3E%3Ccircle cx='90' cy='92' r='46' fill='%234fd1e8' opacity='.7'/%3E%3Crect x='150' y='66' width='130' height='12' rx='6' fill='%23fff' opacity='.7'/%3E%3Crect x='150' y='90' width='96' height='9' rx='4' fill='%23fff' opacity='.35'/%3E%3Crect x='150' y='110' width='60' height='20' rx='10' fill='%23ea3b2e'/%3E%3C/svg%3E" alt="机器人挑战赛复赛第二轮赛道调整快讯封面">
+            <div>
+              <h4>机器人挑战赛复赛：赛道障碍高度临时调整</h4>
+              <small>现场爆料 · 12 分钟前 · 8 家队伍受影响</small>
+            </div>
+          </article>
+          <article class="sk-mini">
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 180'%3E%3Crect width='320' height='180' fill='%23221826'/%3E%3Cpath d='M0 140 Q80 90 160 130 T320 110 V180 H0 Z' fill='%23ea3b2e' opacity='.5'/%3E%3Ccircle cx='240' cy='56' r='26' fill='%23ffd34d' opacity='.85'/%3E%3Crect x='30' y='46' width='90' height='10' rx='5' fill='%23fff' opacity='.7'/%3E%3Crect x='30' y='66' width='60' height='8' rx='4' fill='%23fff' opacity='.35'/%3E%3C/svg%3E" alt="原创影像大赛城市观察单元入围作品争议讨论封面">
+            <div>
+              <h4>原创影像大赛：城市观察单元入围名单引发讨论</h4>
+              <small>赛后观察 · 42 分钟前 · 评论区已开放</small>
+            </div>
+          </article>
+          <article class="sk-mini">
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 180'%3E%3Crect width='320' height='180' fill='%23161d18'/%3E%3Cg fill='%23ffd34d' opacity='.8'%3E%3Ccircle cx='70' cy='60' r='8'/%3E%3Ccircle cx='110' cy='90' r='8'/%3E%3Ccircle cx='150' cy='56' r='8'/%3E%3Ccircle cx='190' cy='96' r='8'/%3E%3Ccircle cx='230' cy='62' r='8'/%3E%3C/g%3E%3Cpath d='M70 60 L110 90 L150 56 L190 96 L230 62' stroke='%234fd1e8' stroke-width='2' fill='none'/%3E%3Crect x='40' y='130' width='240' height='9' rx='4' fill='%23fff' opacity='.3'/%3E%3C/svg%3E" alt="高校辩论联赛半决赛现场投票数据封面">
+            <div>
+              <h4>高校辩论联赛半决赛：现场投票数据首次公开</h4>
+              <small>官方发布 · 1 小时前 · 含完整投票明细</small>
+            </div>
+          </article>
+          <article class="sk-mini">
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 180'%3E%3Crect width='320' height='180' fill='%23221a12'/%3E%3Crect x='36' y='96' width='40' height='60' fill='%23ff7a4d'/%3E%3Crect x='90' y='70' width='40' height='86' fill='%23ffd34d'/%3E%3Crect x='144' y='108' width='40' height='48' fill='%234fd1e8'/%3E%3Crect x='198' y='50' width='40' height='106' fill='%23ea3b2e'/%3E%3Crect x='252' y='86' width='40' height='70' fill='%23ffffff' opacity='.7'/%3E%3C/svg%3E" alt="校园编程马拉松通宵赛段现场记录封面">
+            <div>
+              <h4>校园编程马拉松：通宵赛段第一组提交作品</h4>
+              <small>现场记录 · 2 小时前 · 提交通道持续开放</small>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 实时内容流 ===== -->
+  <section class="sk-section sk-anchor" id="sk-videos">
+    <div class="sk-wrap">
+      <div class="sk-sec-head">
+        <div>
+          <div class="sk-eyebrow">Live Feed · 实时内容</div>
+          <h2 class="sk-h2">每日爆料的<em>九条现场切片</em></h2>
+          <p class="sk-sec-desc">按热度与时间双轨排序，支持标签筛选。点击卡片上的互动按钮可进行点赞、收藏与评论。</p>
+        </div>
+      </div>
+
+      <div class="sk-tabs" id="skTabs">
+        <button class="sk-tab is-on" data-filter="all">全部爆料</button>
+        <button class="sk-tab" data-filter="现场">现场直击</button>
+        <button class="sk-tab" data-filter="复盘">赛后复盘</button>
+        <button class="sk-tab" data-filter="幕后">创作幕后</button>
+        <button class="sk-tab" data-filter="数据">数据观察</button>
+      </div>
+
+      <div class="sk-video-grid" id="skVideoGrid">
+
+        <article class="sk-card" data-tag="现场">
+          <div class="sk-cover">
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%2314202b'/%3E%3Crect x='40' y='160' width='400' height='14' rx='7' fill='%23ea3b2e' opacity='.8'/%3E%3Cg fill='%234fd1e8'%3E%3Crect x='70' y='90' width='36' height='70'/%3E%3Crect x='120' y='60' width='36' height='100'/%3E%3Crect x='170' y='110' width='36' height='50'/%3E%3C/g%3E%3Ccircle cx='356' cy='86' r='38' fill='%23ffd34d' opacity='.8'/%3E%3Crect x='290' y='150' width='120' height='9' rx='4' fill='%23fff' opacity='.4'/%3E%3C/svg%3E" alt="设计大赛决赛答辩现场实时爆料封面">
+            <span class="sk-cover-tag">现场直击</span>
+            <span class="sk-cover-live">LIVE</span>
+          </div>
+          <div class="sk-card-body">
+            <h3>设计大赛决赛答辩：第三位选手的 10 分钟加时陈述</h3>
+            <p>现场爆料官完整记录了加时答辩的问答要点，评委追问集中在「公共空间的夜间使用」这一细节上。</p>
+            <div class="sk-tags"><span class="sk-tag">设计</span><span class="sk-tag">答辩</span><span class="sk-tag">加时</span></div>
+            <div class="sk-card-foot">
+              <span class="sk-author"><span class="sk-ava" style="background:#4fd1e8">看</span>看台第七排</span>
+              <div class="sk-actions">
+                <button class="sk-act" data-like>♡ <b>128</b></button>
+                <button class="sk-act" data-save>☆ 收藏</button>
+                <button class="sk-act" data-comment>💬 评论</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sk-card" data-tag="数据">
+          <div class="sk-cover">
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%23201a26'/%3E%3Cg stroke='%23ffd34d' stroke-width='3' fill='none' opacity='.9'%3E%3Cpolyline points='40,210 120,170 200,190 280,110 360,140 440,70'/%3E%3C/g%3E%3Cg fill='%23ea3b2e'%3E%3Ccircle cx='120' cy='170' r='6'/%3E%3Ccircle cx='200' cy='190' r='6'/%3E%3Ccircle cx='280' cy='110' r='6'/%3E%3Ccircle cx='360' cy='140' r='6'/%3E%3Ccircle cx='440' cy='70' r='6'/%3E%3C/g%3E%3Crect x='40' y='40' width='130' height='12' rx='6' fill='%23ffffff' opacity='.55'/%3E%3C/svg%3E" alt="机器人挑战赛复赛通过率数据观察封面">
+            <span class="sk-cover-tag">数据观察</span>
+            <span class="sk-cover-play">▶</span>
+          </div>
+          <div class="sk-card-body">
+            <h3>机器人挑战赛复赛通过率出炉：障碍高度调整影响几何</h3>
+            <p>我们统计了 24 支队伍的两次尝试数据，发现高度上调 4 厘米后，抓取环节耗时平均增加 17 秒。</p>
+            <div class="sk-tags"><span class="sk-tag">机器人</span><span class="sk-tag">数据</span><span class="sk-tag">赛制</span></div>
+            <div class="sk-card-foot">
+              <span class="sk-author"><span class="sk-ava" style="background:#ffd34d">数</span>数据观察员小柯</span>
+              <div class="sk-actions">
+                <button class="sk-act" data-like>♡ <b>96</b></button>
+                <button class="sk-act" data-save>☆ 收藏</button>
+                <button class="sk-act" data-comment>💬 评论</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sk-card" data-tag="幕后">
+          <div class="sk-cover">
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%231a1c14'/%3E%3Crect x='60' y='60' width='130' height='90' rx='8' fill='%23ff7a4d' opacity='.85'/%3E%3Crect x='210' y='90' width='100' height='60' rx='6' fill='%234fd1e8' opacity='.7'/%3E%3Crect x='330' y='50' width='90' height='110' rx='8' fill='%23ffd34d' opacity='.75'/%3E%3Cg stroke='%23fff' stroke-width='2' opacity='.4'%3E%3Cline x1='60' y1='180' x2='420' y2='180'/%3E%3Cline x1='60' y1='200' x2='340' y2='200'/%3E%3C/g%3E%3C/svg%3E" alt="原创影像大赛布展幕后记录封面">
+            <span class="sk-cover-tag">创作幕后</span>
+            <span class="sk-cover-play">▶</span>
+          </div>
+          <div class="sk-card-body">
+            <h3>开展前 12 小时：影像大赛展陈团队的最后一次通宵</h3>
+            <p>灯光师、木工与策展人如何在一个夜里把 68 幅作品安置到位？我们用镜头记录了这场安静的协作。</p>
+            <div class="sk-tags"><span class="sk-tag">布展</span><span class="sk-tag">幕后</span><span class="sk-tag">影像</span></div>
+            <div class="sk-card-foot">
+              <span class="sk-author"><span class="sk-ava" style="background:#ff7a4d">灯</span>灯具与影子</span>
+              <div class="sk-actions">
+                <button class="sk-act" data-like>♡ <b>211</b></button>
+                <button class="sk-act" data-save>☆ 收藏</button>
+                <button class="sk-act" data-comment>💬 评论</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sk-card" data-tag="复盘">
+          <div class="sk-cover">
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%232a1520'/%3E%3Ccircle cx='150' cy='130' r='58' fill='none' stroke='%23ea3b2e' stroke-width='10' opacity='.8'/%3E%3Ccircle cx='150' cy='130' r='26' fill='%23ffd34d'/%3E%3Crect x='250' y='90' width='160' height='12' rx='6' fill='%23fff' opacity='.6'/%3E%3Crect x='250' y='116' width='120' height='9' rx='4' fill='%23fff' opacity='.35'/%3E%3Crect x='250' y='140' width='140' height='9' rx='4' fill='%23fff' opacity='.25'/%3E%3C/svg%3E" alt="辩论联赛半决赛复盘分析封面">
+            <span class="sk-cover-tag">赛后复盘</span>
+            <span class="sk-cover-play">▶</span>
+          </div>
+          <div class="sk-card-body">
+            <h3>辩论联赛半决赛复盘：反方为何在自由辩阶段失速</h3>
+            <p>从立论结构到交叉质询节奏，逐段还原这场 41 分钟的拉锯战，附关键回合时间轴与评委点评摘录。</p>
+            <div class="sk-tags"><span class="sk-tag">辩论</span><span class="sk-tag">复盘</span><span class="sk-tag">逻辑</span></div>
+            <div class="sk-card-foot">
+              <span class="sk-author"><span class="sk-ava" style="background:#c9a6ff">裁</span>裁判席观察</span>
+              <div class="sk-actions">
+                <button class="sk-act" data-like>♡ <b>174</b></button>
+                <button class="sk-act" data-save>☆ 收藏</button>
+                <button class="sk-act" data-comment>💬 评论</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sk-card" data-tag="现场">
+          <div class="sk-cover">
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%2313221c'/%3E%3Cpath d='M0 220 h480 v50 h-480 z' fill='%23ff7a4d' opacity='.5'/%3E%3Cg fill='%23ffd34d'%3E%3Crect x='80' y='70' width='18' height='150'/%3E%3Crect x='140' y='110' width='18' height='110'/%3E%3Crect x='200' y='50' width='18' height='170'/%3E%3C/g%3E%3Ccircle cx='340' cy='120' r='42' fill='%234fd1e8' opacity='.7'/%3E%3C/svg%3E" alt="编程马拉松通宵赛段现场封面">
+            <span class="sk-cover-tag">现场直击</span>
+            <span class="sk-cover-live">LIVE</span>
+          </div>
+          <div class="sk-card-body">
+            <h3>编程马拉松凌晨三点：最后一个完成提交的队伍</h3>
+            <p>提交通道还有 40 分钟关闭，角落里那支只有两人的队伍刚刚跑通全部测试用例。</p>
+            <div class="sk-tags"><span class="sk-tag">编程</span><span class="sk-tag">通宵</span><span class="sk-tag">提交</span></div>
+            <div class="sk-card-foot">
+              <span class="sk-author"><span class="sk-ava" style="background:#7fe3a0">夜</span>夜间爆料组</span>
+              <div class="sk-actions">
+                <button class="sk-act" data-like>♡ <b>305</b></button>
+                <button class="sk-act" data-save>☆ 收藏</button>
+                <button class="sk-act" data-comment>💬 评论</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sk-card" data-tag="幕后">
+          <div class="sk-cover">
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%23241c2e'/%3E%3Crect x='70' y='60' width='150' height='110' rx='10' fill='%23ffffff' opacity='.12'/%3E%3Crect x='250' y='100' width='160' height='70' rx='10' fill='%23ea3b2e' opacity='.65'/%3E%3Ccircle cx='150' cy='200' r='24' fill='%23ffd34d'/%3E%3Ccircle cx='250' cy='200' r='24' fill='%23ffffff' opacity='.4'/%3E%3Ccircle cx='350' cy='200' r='24' fill='%234fd1e8' opacity='.7'/%3E%3C/svg%3E" alt="爆料官设备与素材整理幕后封面">
+            <span class="sk-cover-tag">创作幕后</span>
+            <span class="sk-cover-play">▶</span>
+          </div>
+          <div class="sk-card-body">
+            <h3>爆料官的背包里有什么：一台手机和四件「隐形装备」</h3>
+            <p>从领夹麦到折叠反光板，我们打开三位资深爆料官的包，聊聊他们如何在嘈杂现场保住音质与画面。</p>
+            <div class="sk-tags"><span class="sk-tag">装备</span><span class="sk-tag">方法</span><span class="sk-tag">幕后</span></div>
+            <div class="sk-card-foot">
+              <span class="sk-author"><span class="sk-ava" style="background:#ffd34d">器</span>器材与现场</span>
+              <div class="sk-actions">
+                <button class="sk-act" data-like>♡ <b>143</b></button>
+                <button class="sk-act" data-save>☆ 收藏</button>
+                <button class="sk-act" data-comment>💬 评论</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sk-card" data-tag="复盘">
+          <div class="sk-cover">
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%23161c22'/%3E%3Cpath d='M60 200 Q140 90 220 160 T380 110' stroke='%23ffd34d' stroke-width='6' fill='none' opacity='.85'/%3E%3Cg fill='%23ea3b2e'%3E%3Ccircle cx='60' cy='200' r='7'/%3E%3Ccircle cx='220' cy='160' r='7'/%3E%3Ccircle cx='380' cy='110' r='7'/%3E%3C/g%3E%3Crect x='60' y='40' width='160' height='11' rx='5' fill='%23fff' opacity='.5'/%3E%3Crect x='60' y='62' width='100' height='8' rx='4' fill='%23fff' opacity='.28'/%3E%3C/svg%3E" alt="摄影大赛评审流程复盘封面">
+            <span class="sk-cover-tag">赛后复盘</span>
+            <span class="sk-cover-play">▶</span>
+          </div>
+          <div class="sk-card-body">
+            <h3>摄影大赛评审流程全复盘：三轮盲评是怎么跑起来的</h3>
+            <p>从 2140 张投稿到 36 张入围，评审系统如何避免「熟人分」？我们请到评审协调人做了完整拆解。</p>
+            <div class="sk-tags"><span class="sk-tag">摄影</span><span class="sk-tag">评审</span><span class="sk-tag">流程</span></div>
+            <div class="sk-card-foot">
+              <span class="sk-author"><span class="sk-ava" style="background:#8fd3ff">评</span>流程观察室</span>
+              <div class="sk-actions">
+                <button class="sk-act" data-like>♡ <b>88</b></button>
+                <button class="sk-act" data-save>☆ 收藏</button>
+                <button class="sk-act" data-comment>💬 评论</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sk-card" data-tag="数据">
+          <div class="sk-cover">
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%23201810'/%3E%3Cg fill='%23ff7a4d'%3E%3Crect x='60' y='150' width='44' height='70'/%3E%3Crect x='124' y='120' width='44' height='100'/%3E%3Crect x='188' y='86' width='44' height='134'/%3E%3Crect x='252' y='108' width='44' height='112'/%3E%3Crect x='316' y='64' width='44' height='156'/%3E%3C/g%3E%3Crect x='60' y='40' width='170' height='12' rx='6' fill='%23ffd34d' opacity='.8'/%3E%3C/svg%3E" alt="赛区热度分布数据观察封面">
+            <span class="sk-cover-tag">数据观察</span>
+            <span class="sk-cover-play">▶</span>
+          </div>
+          <div class="sk-card-body">
+            <h3>七大赛区热度分布：西南赛区的爆料量为何翻了近一倍</h3>
+            <p>结合爆料提交量、互动率与转播观看时长，我们尝试解释一次区域性的关注度跃迁。</p>
+            <div class="sk-tags"><span class="sk-tag">赛区</span><span class="sk-tag">热度</span><span class="sk-tag">观察</span></div>
+            <div class="sk-card-foot">
+              <span class="sk-author"><span class="sk-ava" style="background:#ffd34d">图</span>图谱研究所</span>
+              <div class="sk-actions">
+                <button class="sk-act" data-like>♡ <b>132</b></button>
+                <button class="sk-act" data-save>☆ 收藏</button>
+                <button class="sk-act" data-comment>💬 评论</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sk-card" data-tag="现场">
+          <div class="sk-cover">
+            <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270'%3E%3Crect width='480' height='270' fill='%231a2030'/%3E%3Cg fill='%23ffffff' opacity='.8'%3E%3Ccircle cx='120' cy='90' r='26'/%3E%3Ccircle cx='210' cy='130' r='20'/%3E%3Ccircle cx='300' cy='80' r='30'/%3E%3C/g%3E%3Cpath d='M60 220 Q160 160 260 200 T460 170' stroke='%234fd1e8' stroke-width='5' fill='none' opacity='.8'/%3E%3Crect x='60' y='40' width='140' height='11' rx='5' fill='%23ea3b2e'/%3E%3C/svg%3E" alt="音乐创作大赛现场试听环节封面">
+            <span class="sk-cover-tag">现场直击</span>
+            <span class="sk-cover-live">LIVE</span>
+          </div>
+          <div class="sk-card-body">
+            <h3>音乐创作大赛试听环节：第 11 号作品让全场安静了 8 秒</h3>
+            <p>一段几乎没有人声的编曲，在试听结束后留下了明显的空白。现场爆料官记下了评委的第一句点评。</p>
+            <div class="sk-tags"><span class="sk-tag">音乐</span><span class="sk-tag">试听</span><span class="sk-tag">现场</span></div>
+            <div class="sk-card-foot">
+              <span class="sk-author"><span class="sk-ava" style="background:#ff9ec4">声</span>声音记录者</span>
+              <div class="sk-actions">
+                <button class="sk-act" data-like>♡ <b>267</b></button>
+                <button class="sk-act" data-save>☆ 收藏</button>
+                <button class="sk-act" data-comment>💬 评论</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 专题企划 ===== -->
+  <section class="sk-section sk-topic-section sk-anchor" id="sk-topics">
+    <div class="sk-wrap">
+      <div class="sk-sec-head">
+        <div>
+          <div class="sk-eyebrow">Specials · 专题企划</div>
+          <h2 class="sk-h2">把一场大赛拆成<em>可以反复阅读的专题</em></h2>
+          <p class="sk-sec-desc">每个专题持续更新，收录爆料、复盘、访谈与数据，形成完整的赛事档案。</p>
+        </div>
+      </div>
+      <div class="sk-topic-grid">
+        <article class="sk-topic">
+          <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23121d29'/%3E%3Cg stroke='%234fd1e8' stroke-width='2' fill='none' opacity='.7'%3E%3Crect x='40' y='40' width='140' height='90'/%3E%3Crect x='200' y='80' width='160' height='70'/%3E%3Crect x='60' y='160' width='200' height='100'/%3E%3C/g%3E%3Crect x='270' y='180' width='90' height='80' fill='%23ea3b2e' opacity='.7'/%3E%3C/svg%3E" alt="城市空间再想象专题封面">
+          <div class="sk-topic-in">
+            <span class="sk-chip">进行中 · 第 3 期</span>
+            <h3>城市空间再想象</h3>
+            <p>跟随设计大赛的 12 组方案，重新观察我们每天经过的街角与天桥。</p>
+            <span class="sk-topic-state">已收录 28 条爆料 · 更新至 11/19</span>
+          </div>
+        </article>
+        <article class="sk-topic">
+          <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23221a12'/%3E%3Cg fill='%23ff7a4d'%3E%3Crect x='50' y='180' width='60' height='70'/%3E%3Crect x='130' y='130' width='60' height='120'/%3E%3Crect x='210' y='90' width='60' height='160'/%3E%3Crect x='290' y='150' width='60' height='100'/%3E%3C/g%3E%3Ccircle cx='90' cy='90' r='30' fill='%23ffd34d' opacity='.8'/%3E%3C/svg%3E" alt="机器人第一次抓取失败专题封面">
+          <div class="sk-topic-in">
+            <span class="sk-chip">已完结 · 全 6 集</span>
+            <h3>机器人第一次抓取失败</h3>
+            <p>镜头贴近赛场边缘，记录那些在调试区反复重来的年轻工程师。</p>
+            <span class="sk-topic-state">已收录 41 条爆料 · 完结归档</span>
+          </div>
+        </article>
+        <article class="sk-topic">
+          <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231c2026'/%3E%3Ccircle cx='200' cy='140' r='70' fill='none' stroke='%23ffd34d' stroke-width='6' opacity='.8'/%3E%3Ccircle cx='200' cy='140' r='28' fill='%23ea3b2e'/%3E%3Crect x='70' y='240' width='260' height='10' rx='5' fill='%23fff' opacity='.3'/%3E%3C/svg%3E" alt="评审席上的十分钟专题封面">
+          <div class="sk-topic-in">
+            <span class="sk-chip">连载中 · 每周二更新</span>
+            <h3>评审席上的十分钟</h3>
+            <p>一位评委在打分前最看重的究竟是什么？六位评审给出不同答案。</p>
+            <span class="sk-topic-state">已收录 17 条爆料 · 更新至 11/18</span>
+          </div>
+        </article>
+        <article class="sk-topic">
+          <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23142620'/%3E%3Cpath d='M40 240 Q120 120 200 190 T360 130' stroke='%237fe3a0' stroke-width='7' fill='none' opacity='.85'/%3E%3Cg fill='%23ffffff' opacity='.6'%3E%3Ccircle cx='120' cy='90' r='5'/%3E%3Ccircle cx='280' cy='70' r='4'/%3E%3Ccircle cx='330' cy='200' r='6'/%3E%3C/g%3E%3C/svg%3E" alt="赛区之外的十二小时专题封面">
+          <div class="sk-topic-in">
+            <span class="sk-chip">征稿中 · 长期开放</span>
+            <h3>赛区之外的十二小时</h3>
+            <p>比赛结束之后，选手们去了哪里？一组关于返程、聚餐与复盘的生活纪录。</p>
+            <span class="sk-topic-state">已收录 23 条爆料 · 持续征集</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 创作者矩阵 ===== -->
+  <section class="sk-section sk-anchor" id="sk-creators">
+    <div class="sk-wrap">
+      <div class="sk-sec-head">
+        <div>
+          <div class="sk-eyebrow">Creators · 爆料官矩阵</div>
+          <h2 class="sk-h2">在赛场不同位置<em>记录现场的六个人</em></h2>
+          <p class="sk-sec-desc">他们来自看台、后台、评审席与转播车，用各自的视角补齐同一场比赛的完整拼图。</p>
+        </div>
+      </div>
+      <div class="sk-creator-grid">
+
+        <article class="sk-creator">
+          <div class="sk-ava-lg" style="background:linear-gradient(140deg,#4fd1e8,#7fe3a0)">看</div>
+          <h3>看台第七排</h3>
+          <div class="sk-field">现场直击 · 观众视角</div>
+          <p>专注记录观众席的情绪与反应，擅长在嘈杂中捕捉一句真实的感叹。</p>
+          <div class="sk-creator-data"><span>作品 <b>128</b></span><span>关注 <b>2.4万</b></span></div>
+          <button class="sk-btn sk-btn-ghost" data-author="看台第七排">查看档案</button>
+        </article>
+
+        <article class="sk-creator">
+          <div class="sk-ava-lg" style="background:linear-gradient(140deg,#ffd34d,#ff7a4d)">数</div>
+          <h3>数据观察员小柯</h3>
+          <div class="sk-field">数据观察 · 赛制研究</div>
+          <p>习惯把赛程表变成图表，用通过率、耗时与分布解释一场比赛的隐性结构。</p>
+          <div class="sk-creator-data"><span>作品 <b>86</b></span><span>关注 <b>1.9万</b></span></div>
+          <button class="sk-btn sk-btn-ghost" data-author="数据观察员小柯">查看档案</button>
+        </article>
+
+        <article class="sk-creator">
+          <div class="sk-ava-lg" style="background:linear-gradient(140deg,#ea3b2e,#ff9ec4)">声</div>
+          <h3>声音记录者</h3>
+          <div class="sk-field">音乐现场 · 声音采集</div>
+          <p>随身带着两支领夹麦，专注记录试听、彩排与后台的呼吸声和脚步声。</p>
+          <div class="sk-creator-data"><span>作品 <b>64</b></span><span>关注 <b>1.6万</b></span></div>
+          <button class="sk-btn sk-btn-ghost" data-author="声音记录者">查看档案</button>
+        </article>
+
+        <article class="sk-creator">
+          <div class="sk-ava-lg" style="background:linear-gradient(140deg,#c9a6ff,#4fd1e8)">裁</div>
+          <h3>裁判席观察</h3>
+          <div class="sk-field">评审流程 · 赛后复盘</div>
+          <p>长期关注评分机制与规则演进，习惯在结果公布后追问「为什么是这样」。</p>
+          <div class="sk-creator-data"><span>作品 <b>97</b></span><span>关注 <b>3.1万</b></span></div>
+          <button class="sk-btn sk-btn-ghost" data-author="裁判席观察">查看档案</button>
+        </article>
+
+        <article class="sk-creator">
+          <div class="sk-ava-lg" style="background:linear-gradient(140deg,#7fe3a0,#ffd34d)">夜</div>
+          <h3>夜间爆料组</h3>
+          <div class="sk-field">通宵赛段 · 幕后协作</div>
+          <p>专跑凌晨时段，记录通宵赛段里最真实的疲惫、坚持与意外的小小庆祝。</p>
+          <div class="sk-creator-data"><span>作品 <b>73</b></span><span>关注 <b>2.2万</b></span></div>
+          <button class="sk-btn sk-btn-ghost" data-author="夜间爆料组">查看档案</button>
+        </article>
+
+        <article class="sk-creator">
+          <div class="sk-ava-lg" style="background:linear-gradient(140deg,#8fd3ff,#c9a6ff)">流</div>
+          <h3>流程观察室</h3>
+          <div class="sk-field">赛事运营 · 机制拆解</div>
+          <p>关注报名、审核、评审、公示之间的每个环节，把流程本身当作观察对象。</p>
+          <div class="sk-creator-data"><span>作品 <b>58</b></span><span>关注 <b>1.3万</b></span></div>
+          <button class="sk-btn sk-btn-ghost" data-author="流程观察室">查看档案</button>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 榜单 + 随笔 ===== -->
+  <section class="sk-section sk-anchor" id="sk-rank">
+    <div class="sk-wrap sk-duo">
+      <div class="sk-panel">
+        <h3><span>HOT</span>今日爆料热度榜</h3>
+        <ol class="sk-rank">
+          <li><span class="sk-no">1</span><span>设计大赛决赛并列第一加时答辩</span><span class="sk-heat">8.6 万</span></li>
+          <li><span class="sk-no">2</span><span>音乐创作大赛第 11 号作品全场安静 8 秒</span><span class="sk-heat">7.2 万</span></li>
+          <li><span class="sk-no">3</span><span>编程马拉松凌晨三点最后一组提交</span><span class="sk-heat">6.4 万</span></li>
+          <li><span class="sk-no">4</span><span>机器人复赛障碍高度临时调整</span><span class="sk-heat">5.1 万</span></li>
+          <li><span class="sk-no">5</span><span>摄影大赛三轮盲评流程拆解</span><span class="sk-heat">4.3 万</span></li>
+          <li><span class="sk-no">6</span><span>七大赛区热度分布观察</span><span class="sk-heat">3.8 万</span></li>
+        </ol>
+      </div>
+      <div class="sk-panel">
+        <h3><span>NOTES</span>爆料官手记</h3>
+        <div class="sk-note">
+          <b>「并列第一之后，我听见评委席的椅子响了一声。」</b>
+          <small>看台第七排 · 11月19日 20:14 · 设计大赛决赛现场</small>
+        </div>
+        <div class="sk-note">
+          <b>「凌晨的赛场像一间没有窗户的教室，所有人都在等一个绿色的对勾。」</b>
+          <small>夜间爆料组 · 11月19日 03:41 · 编程马拉松通宵赛段</small>
+        </div>
+        <div class="sk-note">
+          <b>「试听结束后的那 8 秒，是今年我听过最完整的一段表达。」</b>
+          <small>声音记录者 · 11月18日 21:07 · 音乐创作大赛试听环节</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 用户评价 ===== -->
+  <section class="sk-section sk-anchor" id="sk-comments">
+    <div class="sk-wrap">
+      <div class="sk-sec-head">
+        <div>
+          <div class="sk-eyebrow">Feedback · 用户评价</div>
+          <h2 class="sk-h2">来自选手、观众与<em>赛事方的真实反馈</em></h2>
+          <p class="sk-sec-desc">以下内容摘自平台留言与赛后问卷，已获授权展示。</p>
+        </div>
+      </div>
+      <div class="sk-comment-grid">
+
+        <article class="sk-comment">
+          <p>作为参赛选手，最直接的好处是家人能在第一时间看到我在场上的样子。以前只能等赛后照片，现在打开爆料流就能看到现场。</p>
+          <div class="sk-author"><span class="sk-ava" style="background:#4fd1e8">李</span>李同学 · 设计大赛参赛者</div>
+        </article>
+
+        <article class="sk-comment">
+          <p>信息更新很稳，关键节点基本没有落下。作为主办方，我们把它当成赛事的第二块公告板，很多临时调整都会同步到这里。</p>
+          <div class="sk-author"><span class="sk-ava" style="background:#ea3b2e">陈</span>陈先生 · 赛事运营负责人</div>
+        </article>
+
+        <article class="sk-comment">
+          <p>我很喜欢复盘模块，尤其是把时间轴和评委点评放在一起看。看完再回看比赛，会发现自己漏掉了很多细节。</p>
+          <div class="sk-author"><span class="sk-ava" style="background:#ffd34d">周</span>周老师 · 高校指导教师</div>
+        </article>
+
+        <article class="sk-comment">
+          <p>界面干净，找东西很快。唯一的小建议是希望爆料可以按赛区再细分一层，我主要关注西南赛区的动态。</p>
+          <div class="sk-author"><span class="sk-ava" style="background:#7fe3a0">宋</span>宋同学 · 长期观众</div>
+        </article>
+
+        <article class="sk-comment">
+          <p>从投稿到发布大概十分钟，审核会来确认信息来源，这点挺让人安心。作为爆料官，能感觉到平台是认真在做内容。</p>
+          <div class="sk-author"><span class="sk-ava" style="background:#c9a6ff">何</span>何先生 · 认证爆料官</div>
+        </article>
+
+        <article class="sk-comment">
+          <p>赛后想找自己那组的完整记录，结果在专题里翻到了，还附带现场声音。这种被完整保存下来的感觉很好。</p>
+          <div class="sk-author"><span class="sk-ava" style="background:#ff9ec4">吴</span>吴同学 · 机器人参赛队员</div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 投稿 / 灵感 ===== -->
+  <section class="sk-section sk-anchor" id="sk-submit">
+    <div class="sk-wrap">
+      <div class="sk-cta">
+        <div>
+          <div class="sk-eyebrow">Join Us · 投稿与创作</div>
+          <h2>你也在现场，那就把现场交给我们</h2>
+          <p>无论你是选手、志愿者、观众还是赛事工作人员，只要你在场，就有资格成为爆料官。平台提供认证、素材规范指导与内容分成，你的每一条记录都会进入赛事档案。</p>
+          <div class="sk-cta-actions">
+            <button class="sk-btn sk-btn-red" id="skSubmitBtn2">立即提交爆料</button>
+            <button class="sk-btn sk-btn-ghost" id="skShareBtn">分享给同好</button>
+          </div>
+        </div>
+        <div class="sk-inspire">
+          <div><b>脚本灵感｜</b>用「三个时间点」串起一场比赛：开场前 30 分钟、评分公布、散场之后。</div>
+          <div><b>标题建议｜</b>避免结论式标题，尝试把现场最有画面感的一句话放进标题。</div>
+          <div><b>剪辑思路｜</b>先保留现场声，再加字幕；让观众先用耳朵进入现场。</div>
+          <div><b>上传规范｜</b>正片建议 16:9、1080p 以上；单条爆料不超过 3 分钟。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 企业动态 + 合作 ===== -->
+  <section class="sk-section sk-anchor" id="sk-news">
+    <div class="sk-wrap">
+      <div class="sk-sec-head">
+        <div>
+          <div class="sk-eyebrow">Newsroom · 官方发布</div>
+          <h2 class="sk-h2">企业动态与<em>平台更新日志</em></h2>
+          <p class="sk-sec-desc">官方发布的规则调整、产品更新与合作进展，按时间倒序排列。</p>
+        </div>
+      </div>
+      <div class="sk-news">
+        <div class="sk-news-item">
+          <span class="sk-news-date">2026 / 11 / 19</span>
+          <div><h3>爆料官认证体系升级至 3.0，新增「现场核验」标签</h3><p>认证爆料官提交的现场素材经确认后，将显示「已核验」标签，便于读者快速判断信息可信度。</p></div>
+          <button class="sk-btn sk-btn-ghost" data-copy="https://saimatch.example/news/20261119">复制链接</button>
+        </div>
+        <div class="sk-news-item">
+          <span class="sk-news-date">2026 / 11 / 16</span>
+          <div><h3>与 5 家赛事主办机构完成 2027 赛季内容合作签约</h3><p>合作范围覆盖官方爆料页搭建、实时数据接入与赛后内容归档，进一步扩大平台赛事覆盖面。</p></div>
+          <button class="sk-btn sk-btn-ghost" data-copy="https://saimatch.example/news/20261116">复制链接</button>
+        </div>
+        <div class="sk-news-item">
+          <span class="sk-news-date">2026 / 11 / 12</span>
+          <div><h3>专题页新增「时间轴」视图，复盘内容可按节点定位</h3><p>专题页支持按赛事节点展开，评分公布、赛制调整、晋级名单等关键信息一目了然。</p></div>
+          <button class="sk-btn sk-btn-ghost" data-copy="https://saimatch.example/news/20261112">复制链接</button>
+        </div>
+        <div class="sk-news-item">
+          <span class="sk-news-date">2026 / 11 / 08</span>
+          <div><h3>「夜间爆料组」计划上线，覆盖通宵赛段现场记录</h3><p>面向凌晨时段仍在进行的赛事，平台组建专项小组，保障夜间爆料通道 24 小时运转。</p></div>
+          <button class="sk-btn sk-btn-ghost" data-copy="https://saimatch.example/news/20261108">复制链接</button>
+        </div>
+      </div>
+
+      <div style="margin-top:38px">
+        <div class="sk-eyebrow">Partners · 合作机构</div>
+        <div class="sk-partners">
+          <span class="sk-partner">城市创意设计大赛组委会</span>
+          <span class="sk-partner">全国大学生机器人挑战赛</span>
+          <span class="sk-partner">青年原创影像计划</span>
+          <span class="sk-partner">高校辩论联赛联盟</span>
+          <span class="sk-partner">校园编程马拉松</span>
+          <span class="sk-partner">城市音乐创作大赛</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="sk-section sk-anchor" id="sk-faq">
+    <div class="sk-wrap">
+      <div class="sk-sec-head">
+        <div>
+          <div class="sk-eyebrow">Help · 帮助中心</div>
+          <h2 class="sk-h2">关于爆料、投稿与<em>常见问题</em></h2>
+        </div>
+      </div>
+      <div class="sk-faq">
+        <details>
+          <summary>怎样才能成为认证爆料官？</summary>
+          <p>在官网提交爆料官申请，填写常驻赛区与关注赛道，并上传一条不少于 30 秒的现场素材。平台会在 3 个工作日内完成初审，通过后即可开通爆料通道。</p>
+        </details>
+        <details>
+          <summary>爆料内容多久会发布？</summary>
+          <p>普通爆料平均在 9 分钟内完成审核发布；涉及评分公布、晋级名单等关键节点的信息，会走官方发布通道，通常会更快。</p>
+        </details>
+        <details>
+          <summary>平台如何保证爆料信息的真实性？</summary>
+          <p>我们要求爆料官提供现场可核验的信息，并对无法确认的内容标注「待确认」。任何带有明显猜测性质的内容都不会被推荐至焦点位。</p>
+        </details>
+        <details>
+          <summary>可以提交非现场拍摄的素材吗？</summary>
+          <p>可以，但需明确标注素材来源与拍摄时间。平台鼓励原创现场记录，转载素材需提供授权说明，否则将不予发布。</p>
+        </details>
+        <details>
+          <summary>爆料官有内容分成吗？</summary>
+          <p>有。认证爆料官的原创内容会根据阅读量、互动量与专题收录情况获得分成，具体规则可在爆料官后台查看。</p>
+        </details>
+        <details>
+          <summary>赛事方如何合作入驻？</summary>
+          <p>可通过页面底部的合作邮箱联系我们，提供赛事名称、赛程与联系人信息。平台将协助搭建官方爆料页，并配置数据看板与互动组件。</p>
+        </details>
+        <details>
+          <summary>发现信息有误怎么办？</summary>
+          <p>每条爆料详情页均提供「反馈」入口，也可以直接联系客服邮箱。核实后我们会尽快更正，并在原位置标注更正说明。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="sk-footer">
+  <div class="sk-wrap">
+    <div class="sk-footer-grid">
+      <div>
+        <a class="sk-logo" href="#sk-home" style="margin-bottom:14px">
+          <span class="sk-logo-mark">爆</span>
+          <span class="sk-logo-txt"><b>大赛每日实时爆料</b><span>SAIMATCH LIVE</span></span>
+        </a>
+        <p>大赛每日实时爆料平台官方网站，专注赛事现场实时信息与深度内容。我们以原创、正版、高清为基本标准，持续运营一个真实、温暖的赛事内容社区。</p>
+        <p style="margin-top:10px">合作与反馈：partner@saimatch.example</p>
+      </div>
+      <div>
+        <h4>平台内容</h4>
+        <ul>
+          <li><a href="#sk-videos">实时爆料流</a></li>
+          <li><a href="#sk-topics">专题企划</a></li>
+          <li><a href="#sk-creators">爆料官矩阵</a></li>
+          <li><a href="#sk-rank">热度榜单</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>关于我们</h4>
+        <ul>
+          <li><a href="#sk-about">品牌故事</a></li>
+          <li><a href="#sk-news">企业动态</a></li>
+          <li><a href="#sk-faq">帮助中心</a></li>
+          <li><a href="#sk-submit">投稿入口</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>参与方式</h4>
+        <ul>
+          <li><a href="#sk-submit">申请爆料官</a></li>
+          <li><a href="#sk-submit">素材规范</a></li>
+          <li><a href="#sk-news">赛事合作</a></li>
+          <li><a href="#sk-comments">用户反馈</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sk-footer-bottom">
+      <span>© 2026 大赛每日实时爆料平台 · 官方网站 · 持续运营中</span>
+      <span>内容均为原创或已获授权 · 正版高清 · 值得信赖的赛事内容生态</span>
+    </div>
+  </div>
+</footer>
+
+<button class="sk-top" id="skTop" aria-label="回到顶部">↑</button>
+<div class="sk-toast" id="skToast"></div>
+
+<div class="sk-modal" id="skModal">
+  <div class="sk-modal-box">
+    <h3 id="skModalTitle">提交现场爆料</h3>
+    <p id="skModalDesc">填写以下信息，平台将在审核后尽快发布。请确保内容真实、可核验。</p>
+    <div id="skModalForm">
+      <label>你的昵称
+        <input type="text" id="skFieldName" placeholder="例如：看台第七排">
+      </label>
+      <label>爆料内容
+        <textarea id="skFieldText" rows="3" placeholder="用一两句话描述现场发生了什么，包括时间与位置"></textarea>
+      </label>
+      <div class="sk-modal-actions">
+        <button class="sk-btn sk-btn-ghost" data-close>取消</button>
+        <button class="sk-btn sk-btn-red" id="skModalSend">提交</button>
+      </div>
+    </div>
+    <div id="skModalInfo" style="display:none">
+      <p id="skModalInfoText"></p>
+      <div class="sk-modal-actions">
+        <button class="sk-btn sk-btn-ghost" data-close>关闭</button>
+        <button class="sk-btn sk-btn-red" data-copy="https://saimatch.example/">复制官网链接</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var toast = document.getElementById('skToast');
+  var toastTimer = null;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('is-on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('is-on'); }, 2200);
+  }
+
+  /* 公告轮播 */
+  var noticeItems = document.querySelectorAll('#skNoticeTicker .sk-notice-item');
+  var noticeIdx = 0;
+  if (noticeItems.length > 1) {
+    setInterval(function(){
+      noticeItems[noticeIdx].classList.remove('is-on');
+      noticeIdx = (noticeIdx + 1) % noticeItems.length;
+      noticeItems[noticeIdx].classList.add('is-on');
+    }, 4200);
+  }
+
+  /* 移动端导航 */
+  var burger = document.getElementById('skBurger');
+  var mobileNav = document.getElementById('skMobileNav');
+  burger.addEventListener('click', function(){
+    var on = mobileNav.classList.toggle('is-on');
+    burger.setAttribute('aria-expanded', on ? 'true' : 'false');
+    burger.textContent = on ? '✕' : '☰';
+  });
+  mobileNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileNav.classList.remove('is-on');
+      burger.setAttribute('aria-expanded','false');
+      burger.textContent = '☰';
+    });
+  });
+
+  /* 搜索前端反馈 */
+  var searchInput = document.getElementById('skSearchInput');
+  var searchHint = document.getElementById('skSearchHint');
+  var hotWords = ['设计大赛','机器人挑战赛','原创影像','辩论联赛','编程马拉松','音乐创作','热度榜','爆料官','赛后复盘'];
+  var searchTimer = null;
+  searchInput.addEventListener('input', function(){
+    var q = searchInput.value.trim();
+    clearTimeout(searchTimer);
+    if (!q) { searchHint.classList.remove('is-on'); return; }
+    searchTimer = setTimeout(function(){
+      var matched = hotWords.filter(function(w){ return w.indexOf(q) !== -1 || q.indexOf(w) !== -1; });
+      var extra = matched.length ? matched : hotWords.slice(0,4);
+      searchHint.innerHTML = '正在为「<b>' + q.replace(/[<>&]/g,'') + '</b>」检索爆料…<br>相关方向：' + extra.map(function(w){ return '<b>' + w + '</b>'; }).join('、');
+      searchHint.classList.add('is-on');
+    }, 260);
+  });
+  searchInput.addEventListener('keydown', function(e){
+    if (e.key === 'Enter') {
+      var q = searchInput.value.trim();
+      if (q) {
+        searchHint.innerHTML = '已在实时内容中匹配「<b>' + q.replace(/[<>&]/g,'') + '</b>」，共找到 6 条爆料，建议前往「实时内容」查看。';
+        searchHint.classList.add('is-on');
+        showToast('已筛选与「' + q + '」相关的内容');
+      }
+    }
+  });
+  document.addEventListener('click', function(e){
+    if (!e.target.closest('.sk-search')) searchHint.classList.remove('is-on');
+  });
+
+  /* 标签筛选 */
+  var tabs = document.querySelectorAll('#skTabs .sk-tab');
+  var cards = document.querySelectorAll('#skVideoGrid .sk-card');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.classList.remove('is-on'); });
+      tab.classList.add('is-on');
+      var f = tab.getAttribute('data-filter');
+      var shown = 0;
+      cards.forEach(function(card){
+        var ok = (f === 'all') || (card.getAttribute('data-tag') === f);
+        card.style.display = ok ? '' : 'none';
+        if (ok) shown++;
+      });
+      showToast('已筛选「' + tab.textContent.trim() + '」，共 ' + shown + ' 条');
+    });
+  });
+
+  /* 点赞 / 收藏 */
+  document.querySelectorAll('[data-like]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var liked = btn.classList.toggle('is-liked');
+      var b = btn.querySelector('b');
+      var n = parseInt(b.textContent, 10) || 0;
+      n = liked ? n + 1 : Math.max(0, n - 1);
+      b.textContent = n;
+      btn.firstChild.textContent = liked ? '♥ ' : '♡ ';
+      showToast(liked ? '已点赞这条爆料' : '已取消点赞');
+    });
+  });
+  document.querySelectorAll('[data-save]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var saved = btn.classList.toggle('is-saved');
+      btn.textContent = saved ? '★ 已收藏' : '☆ 收藏';
+      showToast(saved ? '已收藏，可在个人中心查看' : '已取消收藏');
+    });
+  });
+
+  /* 评论弹窗 */
+  document.querySelectorAll('[data-comment]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var title = btn.closest('.sk-card').querySelector('h3').textContent;
+      openModal('评论：' + title.slice(0,18) + '…', '该爆料的评论已开放。写下你的现场补充或观点，审核通过后将在详情页展示。');
+    });
+  });
+
+  /* 作者档案弹窗 */
+  document.querySelectorAll('[data-author]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var name = btn.getAttribute('data-author');
+      openModal(name + ' · 爆料官档案', name + ' 是平台认证爆料官，长期活跃于赛事现场。其内容以现场细节与真实记录见长，已有多条爆料被收录进专题企划。如需查看完整作品列表，可在搜索框输入其昵称。');
+    });
+  });
+
+  /* 复制链接 */
+  function copyText(text){
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function(){
+        showToast('链接已复制到剪贴板');
+      }).catch(function(){
+        showToast('复制失败，请手动选择链接');
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); showToast('链接已复制到剪贴板'); }
+      catch(err){ showToast('复制失败，请手动选择链接'); }
+      document.body.removeChild(ta);
+    }
+  }
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      copyText(btn.getAttribute('data-copy'));
+    });
+  });
+
+  /* 弹窗控制 */
+  var modal = document.getElementById('skModal');
+  var modalTitle = document.getElementById('skModalTitle');
+  var modalDesc = document.getElementById('skModalDesc');
+  var modalForm = document.getElementById('skModalForm');
+  var modalInfo = document.getElementById('skModalInfo');
+  var modalInfoText = document.getElementById('skModalInfoText');
+
+  function openModal(title, desc){
+    modalTitle.textContent = title;
+    modalDesc.textContent = desc;
+    modalForm.style.display = 'none';
+    modalInfo.style.display = 'block';
+    modalInfoText.textContent = '提示信息已展示，感谢你的关注与参与。';
+    modal.classList.add('is-on');
+  }
+  function openSubmit(){
+    modalTitle.textContent = '提交现场爆料';
+    modalDesc.textContent = '填写以下信息，平台将在审核后尽快发布。请确保内容真实、可核验。';
+    modalForm.style.display = 'block';
+    modalInfo.style.display = 'none';
+    modal.classList.add('is-on');
+  }
+  function closeModal(){
+    modal.classList.remove('is-on');
+  }
+  modal.querySelectorAll('[data-close]').forEach(function(b){
+    b.addEventListener('click', closeModal);
+  });
+  modal.addEventListener('click', function(e){
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeModal();
+  });
+
+  var submitBtn = document.getElementById('skSubmitBtn');
+  var submitBtn2 = document.getElementById('skSubmitBtn2');
+  if (submitBtn) submitBtn.addEventListener('click', openSubmit);
+  if (submitBtn2) submitBtn2.addEventListener('click', openSubmit);
+
+  document.getElementById('skModalSend').addEventListener('click', function(){
+    var name = document.getElementById('skFieldName').value.trim();
+    var text = document.getElementById('skFieldText').value.trim();
+    if (!name || !text) {
+      showToast('请填写昵称与爆料内容');
+      return;
+    }
+    document.getElementById('skFieldName').value = '';
+    document.getElementById('skFieldText').value = '';
+    closeModal();
+    showToast('爆料已提交，审核通过后将出现在实时内容流');
+  });
+
+  /* 分享 */
+  function sharePage(){
+    var url = 'https://saimatch.example/';
+    if (navigator.share) {
+      navigator.share({ title: '大赛每日实时爆料平台', text: '赛事现场实时爆料与深度复盘，一起关注每一个值得记住的现场。', url: url }).catch(function(){});
+    } else {
+      copyText(url);
+    }
+  }
+  var shareHero = document.getElementById('skShareHero');
+  var shareBtn = document.getElementById('skShareBtn');
+  if (shareHero) shareHero.addEventListener('click', sharePage);
+  if (shareBtn) shareBtn.addEventListener('click', sharePage);
+
+  /* 回到顶部 */
+  var topBtn = document.getElementById('skTop');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 520) topBtn.classList.add('is-on');
+    else topBtn.classList.remove('is-on');
+  }, { passive: true });
+  topBtn.addEventListener('click', function(){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* 数字滚动 */
+  var counters = document.querySelectorAll('[data-count]');
+  var counted = false;
+  function runCounters(){
+    if (counted) return;
+    counted = true;
+    counters.forEach(function(el){
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var cur = 0;
+      var step = Math.max(1, Math.round(target / 34));
+      var t = setInterval(function(){
+        cur += step;
+        if (cur >= target) { cur = target; clearInterval(t); }
+        el.textContent = cur;
+      }, 24);
+    });
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { runCounters(); io.disconnect(); }
+      });
+    });
+    var stats = document.querySelector('.sk-hero-stats');
+    if (stats) io.observe(stats);
+  } else {
+    runCounters();
+  }
+})();
+</script>
+</body>
+  </html>
